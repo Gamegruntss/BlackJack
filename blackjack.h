@@ -8,11 +8,16 @@ class Blackjack
 
 public:
 Blackjack(size_t, size_t);
+~Blackjack();
 friend std::ostream& operator<<(std::ostream& out, const Blackjack& bj);
 
 void hit();
-size_t totalPlayerHand(const Blackjack&) const;
-size_t totalDealerHand(const Blackjack&) const;
+void dealerHit();
+size_t totalPlayerHand() const;
+size_t totalDealerHand() const;
+int handContains(const std::vector<Card>&, const std::string& cardVal) const;
+const std::vector<Card> getPlayerHand() const;
+const std::vector<Card> getDealerHand() const;
 
 
 private:
