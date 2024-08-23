@@ -22,12 +22,19 @@ public:
 
 //index 0 represents the bottom of the deck
 Deck();
+
 const Card& at(const size_t) const;
+
 const Card& draw();
 void shuffle();
 
+void combineDecks(const Deck&);
+
+const size_t deckSize();
+const size_t currentDeckSize();
+
 private:
-Card deck[52];
+std::vector<Card> deck;
 size_t top;
 std::string suits[4]{"C", "D", "H", "S"};
 std::string cardValues[13]{"A","2","3","4","5","6","7","8","9","10","J","Q","K"};

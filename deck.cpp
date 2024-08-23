@@ -14,8 +14,7 @@ Deck::Deck()
     {
         for(j = 0; j < 13; ++j)
         {
-            deck[i * 13 + j].suit = suits[i];
-            deck[i * 13 + j].cardValue = cardValues[j];
+            deck.push_back(Card{cardValues[j], suits[i]});
         }
     }
 }
@@ -45,6 +44,20 @@ void Deck::shuffle()
         std::swap(deck[i], deck[random]);
     }
 }
+
+void Deck::combineDecks(const Deck& deck2)
+{
+    size_t i;
+
+    for(i = 1; i <= 52; ++i)
+        deck.push_back(deck2.at(i));
+
+    top += (i - 1);
+}
+
+const size_t Deck::deckSize() { return deck.size(); }
+
+const size_t Deck::currentDeckSize() { return top + 1; }
 
 std::ostream &operator<<(std::ostream& out, const Card& c)
 {
