@@ -1,8 +1,9 @@
 #include "blackjack.h"
 
-Blackjack::Blackjack(size_t deckCount, size_t shuffles)
+Blackjack::Blackjack(size_t deckCount, size_t shuffles, uint32_t initialBalance)
 {
     size_t i;
+    playerBalance = initialBalance;
     for(i = 0; i < deckCount - 1; ++i)
         deck.combineDecks(Deck());
     for(i = 0; i < shuffles; ++i)
@@ -65,6 +66,10 @@ void Blackjack::playGame()
 void Blackjack::playHand()
 {
     std::string response;
+
+        std::cout << "What is your bet? You have current balance of $" << playerBalance << ".\n(Note: Do not put a '$' before your bet.)" << std::endl;
+        std::cin >> currentBet;
+        playerBalance -= currentBet;
     
     while(totalPlayerHand() < 22 && response.compare("stand") != 0)
     {
@@ -121,7 +126,7 @@ size_t Blackjack::totalHand(const std::vector<Card>& hand) const
     return sum;
 }
 
-bool Blackjack::stateWinner(size_t player, size_t house)
+void Blackjack::stateWinner(size_t player, size_t house)
 {
     bool winner;
     std::cout << std::endl << std::endl;
@@ -140,7 +145,13 @@ bool Blackjack::stateWinner(size_t player, size_t house)
     
     std::cout << "----------------------" << std::endl;
 
-    return winner;
+    payout(winner);
+}
+
+void Blackjack::payout(bool won)
+{
+    if(won) playerBalance += (currentBet * 2);
+    currentBet = 0;
 }
 
 void Blackjack::deal()

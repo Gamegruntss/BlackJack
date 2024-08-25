@@ -9,7 +9,7 @@ class Blackjack
 {
 
 public:
-Blackjack(size_t, size_t);
+Blackjack(size_t, size_t, uint32_t);
 ~Blackjack();
 friend std::ostream& operator<<(std::ostream& out, const Blackjack& bj);
 
@@ -21,6 +21,8 @@ Deck deck;
 size_t score[2]{0,0};
 std::vector<Card> playerHand;
 std::vector<Card> dealerHand;
+uint32_t playerBalance;
+uint32_t currentBet;
 
 void hit();
 void dealerHit();
@@ -36,7 +38,8 @@ const std::vector<Card> getPlayerHand() const;
 const std::vector<Card> getDealerHand() const;
 
 void playHand();
-bool stateWinner(size_t, size_t);
+void stateWinner(size_t, size_t);
+void payout(bool);
 void deal();
 void resetHands();
 
